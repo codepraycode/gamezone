@@ -11,7 +11,7 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import PreviewSliderModal from "@/components/Common/PreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
-import LayoutLoader from "@/components/Common/LayoutLoader";
+import LayoutLoader from "@/Layout/LayoutLoader";
 import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
