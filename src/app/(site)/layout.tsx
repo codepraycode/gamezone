@@ -1,8 +1,5 @@
-"use client";
-import { useState, useEffect } from "react";
 import "../css/euclid-circular-a-font.css";
 import "../css/style.css";
-import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 import { ModalProvider } from "../context/QuickViewModalContext";
@@ -14,45 +11,38 @@ import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import PreviewSliderModal from "@/components/Common/PreviewSlider";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
-import PreLoader from "@/components/Common/PreLoader";
+import LayoutLoader from "@/components/Common/LayoutLoader";
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
 
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body>
-        {loading ? (
-          <PreLoader />
-        ) : (
-          <>
-            <ReduxProvider>
-              <CartModalProvider>
-                <ModalProvider>
-                  <PreviewSliderProvider>
-                    <Header />
-                    {children}
+      <html lang="en" suppressHydrationWarning={true}>
+          <body>
+              <LayoutLoader>
+                  <ReduxProvider>
+                      <CartModalProvider>
+                          <ModalProvider>
+                              <PreviewSliderProvider>
+                                  {children}
 
-                    <QuickViewModal />
-                    <CartSidebarModal />
-                    <PreviewSliderModal />
-                  </PreviewSliderProvider>
-                </ModalProvider>
-              </CartModalProvider>
-            </ReduxProvider>
-            <ScrollToTop />
-            <Footer />
-          </>
-        )}
-      </body>
-    </html>
+                                  <QuickViewModal />
+                                  <CartSidebarModal />
+                                  <PreviewSliderModal />
+                              </PreviewSliderProvider>
+                          </ModalProvider>
+                      </CartModalProvider>
+                  </ReduxProvider>
+                  <Toaster />
+                  <ScrollToTop />
+                  <Footer />
+              </LayoutLoader>
+          </body>
+      </html>
   );
 }

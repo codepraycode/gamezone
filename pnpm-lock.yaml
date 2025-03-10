@@ -45,7 +45,7 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
       react-hot-toast:
-        specifier: ^2.4.1
+        specifier: ^2.5.2
         version: 2.5.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-range-slider-input:
         specifier: ^3.0.7
