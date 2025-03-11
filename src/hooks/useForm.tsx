@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "./useNavigate";
 import toast from "react-hot-toast";
 import { useAccountContext } from "@/context/AccountContext";
-import { validateCreateAccountData } from "@/utils/validators";
+import { validateCreateAccountData, validateLoginData } from "@/utils/validators";
 import { ValidationErrors } from "@/types/form";
 import { isEmpty, wait } from "@/utils/functions";
 
@@ -19,8 +19,6 @@ export function useContactForm<T>(intitialData: T = {} as T) {
 
     const handleSubmitContactForm = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        console.debug("Submitted Form!");
 
         setLoading(true);
 
@@ -58,7 +56,7 @@ export function useContactForm<T>(intitialData: T = {} as T) {
 
 
 export function useAuthForm<T>(intitialData: T= {} as T) {
-    const {updateUser} = useAccountContext();
+    const { updateUser, findUser } = useAccountContext();
     const [errors, setErrors] = useState<ValidationErrors<T>>({});
     const [loading, setLoading] = useState(false);
 
@@ -118,46 +116,63 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
                 navigate("/");
             }, 2000);
         })
-
-
-        
-        
-
-
     };
 
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        
-        console.debug("Submitted Form!");
-        
+    
         setLoading(true);
+        const toastID = "authInId";
+
+        toast.loading("Logging in", { id: toastID });
+
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+
+        const data = {
+            email,
+            password,
+        };
+
+        const _errors = validateLoginData(data);
 
 
-        await toast.promise(
-            wait(5),
-            {
-                loading: "Logging in",
-                success: (data) => {
-                    setLoading(false);
-                    return "You're Authenticated!"
-                },
-                error: (err) => `Could not authenticate you`,
-            },
-            {
-                // style: {
-                //     minWidth: "250px",
-                // },
-                success: {
-                    duration: 3500,
-                    // icon: "🔥",
-                },
+        if (!isEmpty(_errors)) {
+            // console.debug(JSON.stringify(_errors));
+            setErrors(() => _errors as any);
+            toast.error("Could not authenticate you", { id: toastID });
+            setLoading(false);
+            return;
+        }
+
+        wait(5).then(() => {
+            const [email, name] = findUser(data.email) || [];
+
+            if (!email || !name) {
+                throw new Error("Account not found!");
             }
-        );
 
-        setTimeout(() => {}, 7000);
-        navigate("/");
+            toast.success("You're Authenticated!", {
+                id: toastID,
+                duration: 3500,
+            });
+
+
+
+            updateUser({
+                email,
+                name,
+                ...data
+            });
+
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
+        }).catch((err)=>{
+            toast.error(err.message || "Could not authenticate you", { id: toastID });
+        }).finally(()=>setLoading(false));
 
 
 

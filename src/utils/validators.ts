@@ -1,4 +1,4 @@
-import { CreateAccountFormData, ValidationErrors } from "@/types/form";
+import { CreateAccountFormData, LoginData, ValidationErrors } from "@/types/form";
 
 
 export function validateCreateAccountData(data: CreateAccountFormData): ValidationErrors<CreateAccountFormData> {
@@ -16,6 +16,18 @@ export function validateCreateAccountData(data: CreateAccountFormData): Validati
         newErrors.rePassword = "Does not match";
 
     // if (Object.keys(newErrors).length === 0) return null;
+
+    return newErrors;
+}
+
+export function validateLoginData(data: LoginData): ValidationErrors<LoginData> {
+    const {email, password} = data;
+
+    let newErrors: ValidationErrors<CreateAccountFormData> = {};
+
+    if (!email) newErrors.email = "Email is required";
+
+    if (!password) newErrors.password = "Password is required";
 
     return newErrors;
 }

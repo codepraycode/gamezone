@@ -7,11 +7,15 @@ import toast from "react-hot-toast";
 
 
 const storeUserId = "gzxxuser";
+const storedExUsers = "gzxxuserxxEx";
+const storedExUsersDelimiter = ",";
+const storedExUsersSubDelimiter = ":";
 
 type AccountContextProps = {
     user: User | null;
     updateUser: (data: User) => void;
     logout: VoidFunction;
+    findUser: (email:string)=> string[] | undefined;
 };
 
 const AccountContext = createContext<AccountContextProps>(null);
@@ -40,10 +44,73 @@ export function AccountContextProvider(props: PropsWithChildren) {
     });
 
 
-    const updateUser = useCallback((data: User)=>{
-        localStorage.setItem(storeUserId, JSON.stringify(data));
-        setUser(()=>data);
-    }, [])
+    function getStoredUsers() {
+        const users = localStorage.getItem(storedExUsers) || "";
+
+        const resp = users.split(storedExUsersDelimiter);
+        return resp
+    }
+
+    const findUser = useCallback((email: string)=>{
+        
+        const usr = getStoredUsers().find((e) => {
+            return e.includes(email)
+        });
+
+        if (!usr) return;
+        
+
+        const resp = usr.split(storedExUsersSubDelimiter);
+        
+
+        return resp;
+
+    }, []);
+
+    const storeUser = useCallback((data: User)=>{
+        // if (!user) {
+        //     console.error("No user to log out");
+        //     return;
+        // };
+
+        // Store user token
+
+        let stored = false;
+
+        const { email, name } = data;
+
+        const userToken= `${email}${storedExUsersSubDelimiter}${name}`;
+
+        const users = getStoredUsers();
+
+
+        for (let i=0; i <= users.length; i++){
+            const usr = users[i];
+
+            if (!usr) continue;
+
+            if (usr.includes(email)) {
+                users[i] = userToken;
+                stored = true;
+                break;
+            };
+        }
+
+        if (!stored) {
+            users.push(userToken)
+        }
+
+        localStorage.setItem(storedExUsers, users.toString());
+    },[]);
+
+    const updateUser = useCallback(
+        (data: User) => {
+            storeUser(data); // store current user;
+            localStorage.setItem(storeUserId, JSON.stringify(data));
+            setUser(() => data);
+        },
+        [storeUser]
+    );
 
 
     const clearUser = useCallback(()=>{
@@ -52,9 +119,7 @@ export function AccountContextProvider(props: PropsWithChildren) {
     }, [])
 
     const logout = async () => {
-        console.debug("Log out user!");
 
-        // setLoading(true);
 
         await toast.promise(
             async ()=>{
@@ -89,6 +154,7 @@ export function AccountContextProvider(props: PropsWithChildren) {
         user,
         updateUser,
         logout,
+        findUser,
     };
 
     return (

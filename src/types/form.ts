@@ -5,6 +5,11 @@ export type CreateAccountFormData = {
     rePassword: string;
 };
 
+export type LoginData = {
+    email: string;
+    password: string;
+};
+
 export type ValidationErrors<T> = Partial<Record<keyof T, string>>;
 
 
