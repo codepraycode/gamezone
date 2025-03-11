@@ -1,6 +1,7 @@
 "use client";
 import InputField from "@/components/Common/Form/InputField";
 import { useAuthForm } from "@/hooks/useForm";
+import { useNavigate } from "@/hooks/useNavigate";
 import { CreateAccountFormData } from "@/types/form";
 import Link from "next/link";
 
@@ -8,6 +9,7 @@ import Link from "next/link";
 export default function SignUpForm() {
     const { handleCreateAccount, errors, loading } =
         useAuthForm<CreateAccountFormData>();
+    const { makeRedirectUrl } = useNavigate();
     return (
         <form onSubmit={handleCreateAccount}>
             <InputField
@@ -54,13 +56,13 @@ export default function SignUpForm() {
                 className="w-full flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5"
                 disabled={loading}
             >
-                {loading ? "Loading...": "Create Account"}
+                {loading ? "Loading..." : "Create Account"}
             </button>
 
             <p className="text-center mt-6">
                 Already have an account?
                 <Link
-                    href="/signin"
+                    href={makeRedirectUrl("/signin")}
                     className="text-dark ease-out duration-200 hover:text-blue pl-2"
                 >
                     Sign in Now

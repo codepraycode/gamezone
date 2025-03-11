@@ -26,21 +26,7 @@ const SigninPage = () => {
                           <p>Enter your detail below</p>
                       </div>
 
-                      <div>
-                          <SignInForm />
-                      </div>
-
-                      {/* <OAuth /> */}
-
-                      <p className="text-center mt-6">
-                          Don&apos;t have an account?
-                          <Link
-                              href="/signup"
-                              className="text-dark ease-out duration-200 hover:text-blue pl-2"
-                          >
-                              Sign Up Now!
-                          </Link>
-                      </p>
+                        <SignInForm />
                   </div>
               </div>
           </section>

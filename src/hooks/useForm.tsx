@@ -113,7 +113,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
 
 
             setTimeout(() => {
-                navigate("/");
+                navigate("/", { toRedirect: true, replace: true });
             }, 2000);
         })
     };
@@ -168,7 +168,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
             });
 
             setTimeout(() => {
-                navigate("/");
+                navigate("/", {toRedirect:true, replace:true});
             }, 2000);
         }).catch((err)=>{
             toast.error(err.message || "Could not authenticate you", { id: toastID });

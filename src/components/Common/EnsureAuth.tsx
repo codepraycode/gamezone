@@ -9,16 +9,16 @@ import PreLoader from "./PreLoader";
 export default function EnsureAuth(props: PropsWithChildren) {
     const {user} = useAccountContext();
 
-    const {navigate} = useNavigate();
+    const { redirect } = useNavigate();
 
-    useEffect(()=>{
-        (()=>{
+    useEffect(() => {
+        (() => {
             if (isEmpty(user)) {
-                navigate("/signin");
+                redirect("/signin");
                 return;
             }
-        })()
-    },[user, navigate]);
+        })();
+    }, [user, redirect]);
 
 
     if (!user) return <PreLoader/>;
