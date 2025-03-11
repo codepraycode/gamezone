@@ -1,5 +1,11 @@
 import Image from "next/image";
 
+
+type IconProps = {
+    width?: number | `${number}`;
+    height?: number | `${number}`;
+}
+
 export function StarRating({rate}:{rate:number}) {
 
     const _star_rate= (rate >= 5 ? 5 : rate);
@@ -95,11 +101,11 @@ export function PhoneIcon() {
     );
 }
 
-export function UserIcon() {
+export function UserIcon({width = "24", height="24"}: IconProps) {
     return (
         <svg
-            width="24"
-            height="24"
+            width={width}
+            height={height}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

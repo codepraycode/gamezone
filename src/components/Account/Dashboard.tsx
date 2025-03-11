@@ -1,9 +1,13 @@
 "use client";
 
+import { useAccountContext } from "@/context/AccountContext";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function AccountDashboard() {
     const [activeTab, setActiveTab] = useState("dashboard");
+    const {user, logout} = useAccountContext();
+
     return (
         <div
             className={`xl:max-w-[770px] w-full bg-white rounded-xl shadow-1 py-9.5 px-4 sm:px-7.5 xl:px-10 ${
@@ -11,13 +15,17 @@ export default function AccountDashboard() {
             }`}
         >
             <p className="text-dark">
-                Hello Annie (not Annie?
-                <a
-                    href="#"
+                Hello {user.name} (not {user.name}?{" "}
+                <Link
+                    href="/#"
                     className="text-red ease-out duration-200 hover:underline"
+                    onClick={(e)=>{
+                        e.preventDefault();
+                        logout();
+                    }}
                 >
                     Log Out
-                </a>
+                </Link>
                 )
             </p>
 

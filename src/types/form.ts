@@ -14,6 +14,7 @@ export type ValidationErrors<T> = Partial<Record<keyof T, string>>;
 
 
 export type User = {
+    picture?:string;
     name:string;
     email:string;
     password: string;

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { SignOutIcon } from "../Common/Icons";
+import { SignOutIcon, UserIcon } from "../Common/Icons";
 import { useAccountContext } from "@/context/AccountContext";
 
 export function AccountMenuTabs() {
@@ -200,24 +200,34 @@ export function AccountMenuTabs() {
 
 
 export default function AccountMenu() {
+    const { user } = useAccountContext();
     return (
         <div className="xl:max-w-[370px] w-full bg-white rounded-xl shadow-1">
             <div className="flex xl:flex-col">
                 <div className="hidden lg:flex flex-wrap items-center gap-5 py-6 px-4 sm:px-7.5 xl:px-9 border-r xl:border-r-0 xl:border-b border-gray-3">
                     <div className="max-w-[64px] w-full h-16 rounded-full overflow-hidden">
-                        <Image
-                            src="/images/users/user-04.jpg"
-                            alt="user"
-                            width={64}
-                            height={64}
-                        />
+
+                        {
+                            user.picture ? (
+                                <Image
+                                    src={user.picture}
+                                    alt={user.name + " Picture"}
+                                    width={64}
+                                    height={64}
+                                />
+                            ) : (
+                                <UserIcon width={64} height={64}/>
+                            )
+                        }
+                        
                     </div>
 
                     <div>
                         <p className="font-medium text-dark mb-0.5">
-                            James Septimus
+                            {user.name}
                         </p>
-                        <p className="text-custom-xs">Member Since Sep 2020</p>
+                        {/* <p className="text-custom-xs">Member Since Sep 2020</p> */}
+                        <p className="text-custom-xs">{user.email}</p>
                     </div>
                 </div>
 
