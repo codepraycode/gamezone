@@ -2,15 +2,12 @@
 import { useState } from "react";
 import { useNavigate } from "./useNavigate";
 import toast from "react-hot-toast";
+import { useAccountContext } from "@/context/AccountContext";
+import { validateCreateAccountData } from "@/utils/validators";
+import { ValidationErrors } from "@/types/form";
+import { isEmpty, wait } from "@/utils/functions";
 
 
-async function wait(time: number) {
-    return new Promise((res, rej)=>{
-        setTimeout(()=>{
-            res(null);
-        }, time * 1000)
-    })
-}
 
 
 export function useContactForm<T>(intitialData: T = {} as T) {
@@ -61,7 +58,8 @@ export function useContactForm<T>(intitialData: T = {} as T) {
 
 
 export function useAuthForm<T>(intitialData: T= {} as T) {
-    const [errors, setErrors] = useState<T>(intitialData);
+    const {updateUser} = useAccountContext();
+    const [errors, setErrors] = useState<ValidationErrors<T>>({});
     const [loading, setLoading] = useState(false);
 
     const {navigate} = useNavigate();
@@ -71,34 +69,57 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
     const handleCreateAccount = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        console.debug("Submitted Form!");
-
-
         setLoading(true);
+        const toastID = "authId";
 
-        await toast.promise(
-            wait(5),
-            {
-                loading: "Creating account",
-                success: (data) => {
-                    setLoading(false);
-                    return "You account has been created!";
-                },
-                error: (err) => `Could not create an account`,
-            },
-            {
-                // style: {
-                //     minWidth: "250px",
-                // },
-                success: {
-                    duration: 3500,
-                    // icon: "🔥",
-                },
-            }
-        );
+        toast.loading("Creating account", { id: toastID });
 
-        setTimeout(() => {}, 7000);
-        navigate("/");
+        const formData = new FormData(e.currentTarget as HTMLFormElement);
+        const name = formData.get("name") as string;
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        const rePassword = formData.get("re-type-password") as string;
+        
+
+
+        const _errors = validateCreateAccountData({
+            name,
+            email,
+            password,
+            rePassword,
+        });
+
+        const data = {
+            name,
+            email,
+            password,
+        };
+
+        if (!isEmpty(_errors)) {
+            // console.debug(JSON.stringify(_errors));
+            setErrors(()=>_errors as any);
+            toast.error("Could not create an account", { id: toastID });
+            setLoading(false);
+            return;
+        };
+
+        wait(5).then(()=>{
+
+            toast.success("You account has been created!", {
+                id: toastID,
+                duration: 3500,
+            });
+
+            updateUser(data);
+            setLoading(false);
+
+
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
+        })
+
+
         
         
 
@@ -108,26 +129,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // const formData = new FormData(e.currentTarget as HTMLFormElement);
-        // const email = formData.get("email") as string;
-        // const password = formData.get("password") as string;
-
-        // // console.debug({
-        // //     email, password
-        // // })
-
-        // let newErrors: { email?: string; password?: string } = {};
-        // if (!email) newErrors.email = "Email is required";
-        // if (!password) newErrors.password = "Password is required";
-        // else if (password.length < 6)
-        //     newErrors.password = "Password must be at least 6 characters";
-
-        // setErrors(newErrors);
-
-        // if (Object.keys(newErrors).length === 0) {
-        //     console.log("Form submitted", { email, password });
-        // }
-
+        
         console.debug("Submitted Form!");
         
         setLoading(true);

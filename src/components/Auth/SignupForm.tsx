@@ -1,17 +1,13 @@
 "use client";
 import InputField from "@/components/Common/Form/InputField";
 import { useAuthForm } from "@/hooks/useForm";
+import { CreateAccountFormData } from "@/types/form";
 import Link from "next/link";
 
-type CreateAccoutnFormData = {
-    name: string;
-    email: string;
-    password: string;
-    rePassword: string;
-};
 
 export default function SignUpForm() {
-    const { handleCreateAccount, errors,loading } = useAuthForm<CreateAccoutnFormData>();
+    const { handleCreateAccount, errors, loading } =
+        useAuthForm<CreateAccountFormData>();
     return (
         <form onSubmit={handleCreateAccount}>
             <InputField

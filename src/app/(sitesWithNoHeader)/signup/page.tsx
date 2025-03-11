@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Metadata } from "next";
-import SignUpForm from "@/components/Auth/Signup/SignupForm";
+import SignUpForm from "@/components/Auth/SignupForm";
 import Logo from "@/components/Common/Logo";
 
 

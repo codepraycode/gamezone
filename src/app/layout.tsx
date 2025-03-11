@@ -14,6 +14,7 @@ import { CartModalProvider } from "../context/CartSidebarModalContext";
 import { ModalProvider } from "../context/QuickViewModalContext";
 import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import Footer from "@/components/Common/Footer";
+import { AccountContextProvider } from "@/context/AccountContext";
 
 export default function RootLayout({
     children,
@@ -25,17 +26,19 @@ export default function RootLayout({
             <body>
                 <LayoutLoader>
                     <ReduxProvider>
-                        <CartModalProvider>
-                            <ModalProvider>
-                                <PreviewSliderProvider>
-                                    {children}
+                        <AccountContextProvider>
+                            <CartModalProvider>
+                                <ModalProvider>
+                                    <PreviewSliderProvider>
+                                        {children}
 
-                                    <QuickViewModal />
-                                    <CartSidebarModal />
-                                    <PreviewSliderModal />
-                                </PreviewSliderProvider>
-                            </ModalProvider>
-                        </CartModalProvider>
+                                        <QuickViewModal />
+                                        <CartSidebarModal />
+                                        <PreviewSliderModal />
+                                    </PreviewSliderProvider>
+                                </ModalProvider>
+                            </CartModalProvider>
+                        </AccountContextProvider>
                     </ReduxProvider>
                     <Toaster />
                     <ScrollToTop />
