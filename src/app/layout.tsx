@@ -1,5 +1,5 @@
-import "./css/euclid-circular-a-font.css";
-import "./css/style.css";
+import "../styles/css/euclid-circular-a-font.css";
+import "../styles/css/style.css";
 
 
 import { ReduxProvider } from "@/redux/provider";
@@ -10,9 +10,9 @@ import PreviewSliderModal from "@/components/Shop/ProductPreviewSlider";
 import ScrollToTop from "@/components/Common/ScrollToTop";
 import LayoutLoader from "@/Layout/LayoutLoader";
 import { Toaster } from "react-hot-toast";
-import { CartModalProvider } from "./context/CartSidebarModalContext";
-import { ModalProvider } from "./context/QuickViewModalContext";
-import { PreviewSliderProvider } from "./context/PreviewSliderContext";
+import { CartModalProvider } from "../context/CartSidebarModalContext";
+import { ModalProvider } from "../context/QuickViewModalContext";
+import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import Footer from "@/components/Common/Footer";
 
 export default function RootLayout({

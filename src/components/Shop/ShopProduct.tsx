@@ -1,5 +1,5 @@
 "use client";
-import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
+import { usePreviewSlider } from "@/context/PreviewSliderContext";
 import { useShopContext } from "@/Layout/ShoptLayout"
 import Image from "next/image";
 import { useState } from "react";
