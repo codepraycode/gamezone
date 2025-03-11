@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import Newsletter from "@/components/Common/Newsletter";
+import RecentlyViewdItems from "@/components/Shop";
 import { useAppSelector } from "@/redux/store";
 import Image from "next/image";
-import { title } from "node:process";
-import { createContext, PropsWithChildren, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, PropsWithChildren, useContext, useMemo, useState } from "react";
 
 type ShopLayoutProps = PropsWithChildren;
 type DisplayStyle = "grid" | "list";
@@ -120,7 +121,6 @@ export function ShopDetailLayout(props: PropsWithChildren) {
             <Breadcrumb title={"Shop Details"} pages={["shop details"]} />
 
             {props.children}
-
 
             <section className="overflow-hidden bg-gray-2 py-20">
                 <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
@@ -900,6 +900,9 @@ export function ShopDetailLayout(props: PropsWithChildren) {
                     {/* <!--== tab content end ==--> */}
                 </div>
             </section>
+
+            <RecentlyViewdItems />
+            <Newsletter />
         </>
     );
 }
