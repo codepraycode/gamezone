@@ -6,9 +6,9 @@ import Logo from "@/components/Common/Logo";
 
 
 export const metadata: Metadata = {
-  title: "Signup Page | NextCommerce Nextjs E-commerce template",
-  description: "This is Signup Page for NextCommerce Template",
-  // other metadata
+    title: "Sign Up | GameZone",
+    description: "Easily create an account with GameZone",
+    // other metadata
 };
 
 const SignupPage = () => {

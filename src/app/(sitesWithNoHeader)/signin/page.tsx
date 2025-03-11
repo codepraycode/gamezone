@@ -7,9 +7,9 @@ import Link from "next/link";
 
 
 export const metadata: Metadata = {
-  title: "Signin Page | NextCommerce Nextjs E-commerce template",
-  description: "This is Signin Page for NextCommerce Template",
-  // other metadata
+    title: "Sign In | GameZone",
+    description: "Sign into your account on GameZone",
+    // other metadata
 };
 
 const SigninPage = () => {

@@ -3,9 +3,9 @@ import ContactForm from "@/components/Contact/ContactForm";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Contact Page | NextCommerce Nextjs E-commerce template",
-  description: "This is Contact Page for NextCommerce Template",
-  // other metadata
+    title: "Contact | GameZone",
+    description: "Send us a mesasge",
+    // other metadata
 };
 
 const ContactPage = () => {

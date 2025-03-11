@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 export const metadata: Metadata = {
-    title: "Page Not Found | NextCommerce Nextjs E-commerce template",
+    title: "Page Not Found | GameZone",
     description: "This Page you seek is not found!",
     // other metadata
 };

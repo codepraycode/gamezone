@@ -15,6 +15,14 @@ import { ModalProvider } from "../context/QuickViewModalContext";
 import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import Footer from "@/components/Common/Footer";
 import { AccountContextProvider } from "@/context/AccountContext";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "GameZone",
+    description:
+        "E-commerce web application that allows users to browse, purchase, and manage their orders for games, books, and gift cards.",
+    // other metadata
+};
 
 export default function RootLayout({
     children,

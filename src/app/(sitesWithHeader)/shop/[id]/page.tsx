@@ -5,8 +5,8 @@ import { ShopDetailLayout } from "@/Layout/ShoptLayout";
 import ShopProduct from "@/components/Shop/ShopProduct";
 
 export const metadata: Metadata = {
-    title: "Shop Page | NextCommerce Nextjs E-commerce template",
-    description: "This is Shop Page for NextCommerce Template",
+    title: "Product | GameZone",
+    description: "View Product from GameZone",
     // other metadata
 };
 

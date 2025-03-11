@@ -3,8 +3,8 @@ import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
 export const metadata: Metadata = {
-    title: "Mail Success Page | NextCommerce Nextjs E-commerce template",
-    description: "This is Mail Success Page for NextCommerce Template",
+    title: "Verify Account | GameZone",
+    description: "Quickly verify your account on GameZone",
     // other metadata
 };
 
