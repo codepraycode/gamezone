@@ -12,6 +12,54 @@ async function wait(time: number) {
     })
 }
 
+
+export function useContactForm<T>(intitialData: T = {} as T) {
+    const [errors, setErrors] = useState<T>(intitialData);
+
+    const [loading, setLoading] = useState(false);
+
+    const { navigate } = useNavigate();
+
+    const handleSubmitContactForm = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        console.debug("Submitted Form!");
+
+        setLoading(true);
+
+        await toast.promise(
+            wait(5),
+            {
+                loading: "Logging in",
+                success: (data) => {
+                    setLoading(false);
+                    return "You're Authenticated!";
+                },
+                error: (err) => `Could not authenticate you`,
+            },
+            {
+                // style: {
+                //     minWidth: "250px",
+                // },
+                success: {
+                    duration: 3500,
+                    // icon: "🔥",
+                },
+            }
+        );
+
+        setTimeout(() => {}, 7000);
+        navigate("/");
+    };
+    return {
+        handleSubmitContactForm,
+        loading,
+        errors
+    }
+}
+
+
+
 export function useAuthForm<T>(intitialData: T= {} as T) {
     const [errors, setErrors] = useState<T>(intitialData);
     const [loading, setLoading] = useState(false);
