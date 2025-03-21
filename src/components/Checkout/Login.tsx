@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { CheveronIcon } from "../Common/Icons";
 import { useAuthForm } from "@/hooks/useForm";
-import { LoginFormData } from "@/types/auth";
 import InputField from "../Common/Form/InputField";
 import { useAccountContext } from "@/context/AccountContext";
 import { isEmpty } from "@/utils/functions";
+import { LoginData } from "@/types/form";
 
 const Login = () => {
   const {user} = useAccountContext();
@@ -49,7 +49,7 @@ export default Login;
 
 function LoginForm() {
 
-  const { handleLogin, errors, loading } = useAuthForm<LoginFormData>();
+  const { handleLogin, errors, loading } = useAuthForm<LoginData>();
 
   return (
       <form onSubmit={(e)=>handleLogin(e, true)}>
