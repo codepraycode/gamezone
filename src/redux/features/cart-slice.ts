@@ -1,21 +1,11 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { CartItem } from "@/types/cart";
 
 type InitialState = {
   items: CartItem[];
 };
 
-type CartItem = {
-  id: number;
-  title: string;
-  price: number;
-  discountedPrice: number;
-  quantity: number;
-  imgs?: {
-    thumbnails: string[];
-    previews: string[];
-  };
-};
 
 const initialState: InitialState = {
   items: [],

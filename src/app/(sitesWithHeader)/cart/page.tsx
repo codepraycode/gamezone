@@ -9,11 +9,7 @@ export const metadata: Metadata = {
 };
 
 const CartPage = () => {
-  return (
-    <>
-      <Cart />
-    </>
-  );
+  return <Cart />;
 };
 
 export default CartPage;
