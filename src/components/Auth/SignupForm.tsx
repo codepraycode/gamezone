@@ -2,54 +2,62 @@
 import InputField from "@/components/Common/Form/InputField";
 import { useAuthForm } from "@/hooks/useForm";
 import { useNavigate } from "@/hooks/useNavigate";
-import { CreateAccountFormData } from "@/types/form";
 import Link from "next/link";
+import { FormWrapper } from "../Common/Form/FormUtils";
+import { UserAccountForm } from "@/types/form";
 
 
 export default function SignUpForm() {
     const { handleCreateAccount, errors, loading } =
-        useAuthForm<CreateAccountFormData>();
+        useAuthForm<UserAccountForm>();
     const { makeRedirectUrl } = useNavigate();
     return (
         <form onSubmit={handleCreateAccount}>
-            <InputField
-                label="Full Name"
-                type="name"
-                name="name"
-                placeholder="Enter your full name"
-                error={errors.name}
-                required
-            />
+            <FormWrapper>
+                <InputField
+                    className="w-full"
+                    label="First Name"
+                    name="firstname"
+                    placeholder="e.g John"
+                    type="text"
+                    error={errors.firstname}
+                    required
+                />
 
-            <InputField
-                label="Email Address"
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Enter your email address"
-                error={errors.name}
-                required
-            />
+                <InputField
+                    className="w-full"
+                    label="Last Name"
+                    name="lastname"
+                    placeholder="e.g Fumise"
+                    type="text"
+                    error={errors.lastname}
+                    required
+                />
+            </FormWrapper>
 
-            <InputField
-                label="Password"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Enter your password"
-                error={errors.name}
-                required
-            />
+            <FormWrapper>
+                <InputField
+                    className="w-full"
+                    label="Password"
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    error={errors.password}
+                    required
+                />
 
-            <InputField
-                label="Re-type Password"
-                type="password"
-                name="re-type-password"
-                id="re-type-password"
-                placeholder="Re-type your password"
-                error={errors.name}
-                required
-            />
+                <InputField
+                    className="w-full"
+                    label="Re-type Password"
+                    type="password"
+                    name="re-type-password"
+                    id="re-type-password"
+                    placeholder="Re-type your password"
+                    error={errors.password}
+                    required
+                />
+            </FormWrapper>
 
             <button
                 type="submit"

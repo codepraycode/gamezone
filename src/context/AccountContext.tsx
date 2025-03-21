@@ -1,6 +1,6 @@
 "use client";
 import { useNavigate } from "@/hooks/useNavigate";
-import { User } from "@/types/form";
+import { UserAccount } from "@/types/form";
 import { wait } from "@/utils/functions";
 import { createContext, PropsWithChildren, useCallback, useContext, useState } from "react";
 import toast from "react-hot-toast";
@@ -11,11 +11,15 @@ const storedExUsers = "gzxxuserxxEx";
 const storedExUsersDelimiter = ",";
 const storedExUsersSubDelimiter = ":";
 
+const UserNameDelimeter = "_";
+
+type User = UserAccount | null;
+
 type AccountContextProps = {
-    user: User | null;
+    user: User ;
     updateUser: (data: User) => void;
     logout: VoidFunction;
-    findUser: (email:string)=> string[] | undefined;
+    findUser: (email: string) => {email: string, data: User} | undefined;
 };
 
 const AccountContext = createContext<AccountContextProps>(null);
@@ -35,12 +39,12 @@ export function AccountContextProvider(props: PropsWithChildren) {
 
     const {navigate} = useNavigate()
 
-    const [user, setUser] = useState<User | null>(()=>{
+    const [user, setUser] = useState<User>(()=>{
         const data = localStorage.getItem(storeUserId);
 
         if (!data) return null;
 
-        return JSON.parse(data);
+        return JSON.parse(data) as User;
     });
 
 
@@ -60,10 +64,17 @@ export function AccountContextProvider(props: PropsWithChildren) {
         if (!usr) return;
         
 
-        const resp = usr.split(storedExUsersSubDelimiter);
-        
+        let [emaill, data] = usr.split(storedExUsersSubDelimiter);
 
-        return resp;
+        let _data: UserAccount = null;
+
+        try {
+            _data = JSON.parse(data);
+        } catch (err:any) {
+            console.error(err);
+        }
+
+        return {email: emaill, data:_data};
 
     }, []);
 
@@ -77,9 +88,11 @@ export function AccountContextProvider(props: PropsWithChildren) {
 
         let stored = false;
 
-        const { email, name } = data;
+        const { email } = data;
 
-        const userToken= `${email}${storedExUsersSubDelimiter}${name}`;
+        // const name = firstname + UserNameDelimeter + lastname;
+
+        const userToken= `${email}${storedExUsersSubDelimiter}${JSON.stringify(data)}`;
 
         const users = getStoredUsers();
 
@@ -150,7 +163,7 @@ export function AccountContextProvider(props: PropsWithChildren) {
         }, 1500);
     };
 
-    const contextValue = {
+    const contextValue: AccountContextProps = {
         user,
         updateUser,
         logout,

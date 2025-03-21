@@ -6,6 +6,8 @@ interface InputFieldProps {
     error?: string;
     required?: boolean;
     id?: string;
+    className?: string;
+    value?:string;
     // autoComplete?: "on" | "off";
 }
 
@@ -17,11 +19,13 @@ export default function InputField({
     error,
     required,
     id,
+    value,
+    className="mb-5"
 }: InputFieldProps) {
     const Id = id ? id : name;
 
     return (
-        <div className="mb-5">
+        <div className={className}>
             <label
                 htmlFor={Id}
                 className="block mb-2 text-gray-700 font-medium"
@@ -32,6 +36,7 @@ export default function InputField({
                 type={type}
                 name={name}
                 id={Id}
+                defaultValue={value}
                 placeholder={placeholder}
                 required={required}
                 autoComplete={type === "password" ? "on" : "off"}

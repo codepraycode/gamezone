@@ -1,12 +1,13 @@
-import { CreateAccountFormData, LoginData, ValidationErrors } from "@/types/form";
+import { LoginData, UserAccountForm, ValidationErrors } from "@/types/form";
 
 
-export function validateCreateAccountData(data: CreateAccountFormData): ValidationErrors<CreateAccountFormData> {
-    const {email, name, password, rePassword} = data;
+export function validateCreateAccountData(data: UserAccountForm): ValidationErrors<UserAccountForm> {
+    const {email, firstname, lastname, password, rePassword} = data;
 
-    let newErrors: ValidationErrors<CreateAccountFormData> = {};
+    let newErrors: ValidationErrors<UserAccountForm> = {};
 
-    if (!name) newErrors.name = "Full name is required";
+    if (!firstname) newErrors.firstname = "First name is required";
+    if (!lastname) newErrors.lastname = "Last name is required";
     if (!email) newErrors.email = "Email is required";
 
     if (!password) newErrors.password = "Password is required";
@@ -23,7 +24,7 @@ export function validateCreateAccountData(data: CreateAccountFormData): Validati
 export function validateLoginData(data: LoginData): ValidationErrors<LoginData> {
     const {email, password} = data;
 
-    let newErrors: ValidationErrors<CreateAccountFormData> = {};
+    let newErrors: ValidationErrors<LoginData> = {};
 
     if (!email) newErrors.email = "Email is required";
 
