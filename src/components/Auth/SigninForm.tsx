@@ -2,13 +2,13 @@
 import InputField from "@/components/Common/Form/InputField";
 import { useAuthForm } from "@/hooks/useForm";
 import { useNavigate } from "@/hooks/useNavigate";
-import { LoginFormData } from "@/types/form";
+import { LoginData } from "@/types/form";
 import Link from "next/link";
 
 
 
 export default function SignInForm() {
-    const { handleLogin, errors, loading } = useAuthForm<LoginFormData>();
+    const { handleLogin, errors, loading } = useAuthForm<LoginData>();
 
     const {makeRedirectUrl} = useNavigate();
 

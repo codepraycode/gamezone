@@ -211,7 +211,7 @@ export default function AccountMenu() {
                             user.picture ? (
                                 <Image
                                     src={user.picture}
-                                    alt={user.name + " Picture"}
+                                    alt={user.firstname + " Picture"}
                                     width={64}
                                     height={64}
                                 />
@@ -224,7 +224,7 @@ export default function AccountMenu() {
 
                     <div>
                         <p className="font-medium text-dark mb-0.5">
-                            {user.name}
+                            {user.firstname}
                         </p>
                         {/* <p className="text-custom-xs">Member Since Sep 2020</p> */}
                         <p className="text-custom-xs">{user.email}</p>

@@ -15,7 +15,7 @@ export default function AccountDashboard() {
             }`}
         >
             <p className="text-dark">
-                Hello {user.name} (not {user.name}?{" "}
+                Hello {user.firstname} (not {user.firstname}?{" "}
                 <Link
                     href="/#"
                     className="text-red ease-out duration-200 hover:underline"

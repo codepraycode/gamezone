@@ -2,6 +2,7 @@ import React from "react";
 
 import { Metadata } from "next";
 import Link from "next/link";
+import { SHOP } from "@/constants";
 export const metadata: Metadata = {
     title: "Verify Account | GameZone",
     description: "Quickly verify your account on GameZone",
@@ -16,21 +17,23 @@ export default function VerifyPage() {
                     <div className="bg-white rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
                         <div className="text-center">
                             <h2 className="font-bold text-blue text-4xl lg:text-[45px] lg:leading-[57px] mb-5">
-                                Successful!
+                                Payment Done!
                             </h2>
 
                             <h3 className="font-medium text-dark text-xl sm:text-2xl mb-3">
-                                Your message sent successfully
+                                {/* Your message sent successfully */}
+                                We&apos;ll keep checking to confirm
                             </h3>
 
                             <p className="max-w-[491px] w-full mx-auto mb-7.5">
-                                Thank you so much for your message. We check
+                                {/* Thank you so much for your message. We check
                                 e-mail frequently and will try our best to
-                                respond to your inquiry.
+                                respond to your inquiry. */}
+                                Thank you for you patronage!
                             </p>
 
                             <Link
-                                href="/"
+                                href={SHOP}
                                 className="inline-flex items-center gap-2 font-medium text-white bg-blue py-3 px-6 rounded-md ease-out duration-200 hover:bg-blue-dark"
                             >
                                 <svg
@@ -46,7 +49,7 @@ export default function VerifyPage() {
                                         fill=""
                                     />
                                 </svg>
-                                Back to Home
+                                Back to Shop
                             </Link>
                         </div>
                     </div>

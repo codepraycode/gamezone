@@ -8,7 +8,7 @@ export default function UserAuth() {
     const {user} = useAccountContext();
 
     const link = user ? "/account": "/signin";
-    const title = user ? user.name : "Sign In";
+    const title = user ? user.firstname : "Sign In";
 
 
     return (

@@ -18,7 +18,7 @@ export async function createPaymentLink(data: PaymentLinkData) {
             currency,
             customer_name,
             initiate_type: "inline",
-            callback_url: "http://localhost:3000", // Fix this
+            callback_url: "http://localhost:3000/verify", // Fix this
             ...rest,
         };
 
