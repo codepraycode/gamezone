@@ -13,11 +13,15 @@ import { useAccountContext } from "@/context/AccountContext";
 import toast, { ToastOptions } from "react-hot-toast";
 import { createPaymentLink } from "@/app/actions/checkout";
 import { useNavigate } from "@/hooks/useNavigate";
+import { useCart } from "@/hooks/useCart";
+import { CartItem } from "@/types/cart";
 
 const Checkout = () => {
   const { updateAccount, errors, loading } = useAuthForm<UserAccountForm>();
   const { user } = useAccountContext();
   const {navigate} = useNavigate();
+
+  const { summary, items} = useCart();
 
   const handleCheckout = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +35,11 @@ const Checkout = () => {
 
     toast.loading("Processing...", {...toastConfig, duration:0});
 
-    createPaymentLink()
+    createPaymentLink({
+      email: "preciousolusola16@gmail.com",
+      amount: summary,
+      name: "Precious Olusola",
+    })
     .then((obj)=>{
       toast.success("You can proceed to paying...", toastConfig);
 
@@ -94,7 +102,7 @@ const Checkout = () => {
                       {/* // <!-- checkout right --> */}
                       <div className="max-w-[455px] w-full">
                           {/* <!-- order list box --> */}
-                          <OrderList />
+                          <OrderList  items={items} summary={summary}/>
 
                           {/* <!-- coupon box --> */}
                           <Coupon />
@@ -124,46 +132,56 @@ const Checkout = () => {
 export default Checkout;
 
 
-function OrderList() {
-  return (
-      <div className="bg-white shadow-1 rounded-[10px]">
-          <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-              <h3 className="font-medium text-xl text-dark">Your Order</h3>
-          </div>
+function OrderList({items, summary}: { items: CartItem[], summary: number }) {
+    // const { items, summary } = useCart();
+    return (
+        <div className="bg-white shadow-1 rounded-[10px]">
+            <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
+                <h3 className="font-medium text-xl text-dark">Your Order</h3>
+            </div>
 
-          <div className="pt-2.5 pb-8.5 px-4 sm:px-8.5">
-              {/* <!-- title --> */}
-              <div className="flex items-center justify-between py-5 border-b border-gray-3">
-                  <div>
-                      <h4 className="font-medium text-dark">Product</h4>
-                  </div>
-                  <div>
-                      <h4 className="font-medium text-dark text-right">
-                          Subtotal
-                      </h4>
-                  </div>
-              </div>
+            <div className="pt-2.5 pb-8.5 px-4 sm:px-8.5">
+                {/* <!-- title --> */}
+                <div className="flex items-center justify-between py-5 border-b border-gray-3">
+                    <div>
+                        <h4 className="font-medium text-dark">Product</h4>
+                    </div>
+                    <div>
+                        <h4 className="font-medium text-dark text-right">
+                            Subtotal
+                        </h4>
+                    </div>
+                </div>
 
-              {
-                [1,2,3,4,5].map((item, index)=>(
-                  <OrderListItem key={index}/>
-                ))
-              }
-          </div>
-      </div>
-  );
+                {items.map((item, index) => (
+                    <OrderListItem item={item} key={index} />
+                ))}
+
+                <div className="flex items-center justify-between pt-5">
+                    <div>
+                        <h4 className="font-medium text-dark">Total</h4>
+                    </div>
+                    <div>
+                        <h4 className="font-medium text-dark text-right">
+                            ${summary}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
 }
 
 
-function OrderListItem() {
-  return (
-      <div className="flex items-center justify-between py-5 border-b border-gray-3">
-          <div>
-              <p className="text-dark">iPhone 14 Plus , 6/128GB</p>
-          </div>
-          <div>
-              <p className="text-dark text-right">$899.00</p>
-          </div>
-      </div>
-  );
+function OrderListItem({ item }: { item: CartItem }) {
+    return (
+        <div className="flex items-center justify-between py-5 border-b border-gray-3">
+            <div>
+                <p className="text-dark">{item.title}</p>
+            </div>
+            <div>
+                <p className="text-dark text-right">${item.price}</p>
+            </div>
+        </div>
+    );
 }

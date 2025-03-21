@@ -2,15 +2,24 @@
 
 const PAY_LINK = "https://sandbox-api-d.squadco.com/transaction/initiate";
 
-export async function createPaymentLink() {
+
+type PaymentLinkData = {
+    email:string;
+    amount: number,
+    currency?: "NGN" | "USD",
+    name: string;
+}
+
+export async function createPaymentLink(data: PaymentLinkData) {
+    const { amount, name: customer_name, currency="USD", ...rest} = data;
     try {
         const body = {
-            email: "preciousbusiness10@gmail.com",
-            amount: 50000, // Amount in Kobo (50000 Kobo = 500 NGN)
-            currency: "NGN",
-            customer_name: "Precious",
+            amount: amount * 100, // Amount in Kobo (50000 Kobo = 500 NGN)
+            currency,
+            customer_name,
             initiate_type: "inline",
             callback_url: "http://localhost:3000", // Fix this
+            ...rest,
         };
 
         const headers = {
