@@ -25,13 +25,17 @@ export default function Error500Page({ error, reset }: { error: Error; reset: ()
                 <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
                     <div className="bg-white rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
                         <div className="text-center">
-                            <Image
+                            {/* <Image
                                 src="/images/500.svg"
                                 alt="500"
                                 className="mx-auto mb-8 w-1/2 sm:w-auto"
                                 width={288}
                                 height={190}
-                            />
+                            /> */}
+
+                            <h1 className="mx-auto mb-8 w-1/2 sm:w-auto text-[#3C50E0]">
+                                Error 500!
+                            </h1>
 
                             <h2 className="font-medium text-dark text-xl sm:text-2xl mb-3">
                                 Sorry, an error occured
