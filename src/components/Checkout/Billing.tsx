@@ -46,7 +46,7 @@ function BillingForm({errors}: BillingFormProps) {
                   placeholder="e.g John"
                   type="text"
                   error={errors.firstname}
-                  value={user.firstname}
+                  value={user?.firstname}
               />
 
               <InputField
@@ -56,7 +56,7 @@ function BillingForm({errors}: BillingFormProps) {
                   placeholder="e.g Fumise"
                   type="text"
                   error={errors.lastname}
-                  value={user.lastname}
+                  value={user?.lastname}
               />
           </FormWrapper>
 
@@ -68,7 +68,7 @@ function BillingForm({errors}: BillingFormProps) {
                   placeholder=""
                   type="tel"
                   error={errors.contact}
-                  value={user.contact}
+                  value={user?.contact}
               />
 
               <InputField
@@ -78,7 +78,7 @@ function BillingForm({errors}: BillingFormProps) {
                   placeholder=""
                   type="email"
                   error={errors.email}
-                  value={user.email}
+                  value={user?.email}
               />
           </FormWrapper>
 
@@ -88,7 +88,7 @@ function BillingForm({errors}: BillingFormProps) {
               placeholder=""
               type="text"
               error={errors.company}
-              value={user.company}
+              value={user?.company}
           />
 
           <InputField
@@ -97,7 +97,7 @@ function BillingForm({errors}: BillingFormProps) {
               placeholder=""
               type="text"
               error={errors.address}
-              value={user.address}
+              value={user?.address}
           />
 
           <FormWrapper>
@@ -108,7 +108,7 @@ function BillingForm({errors}: BillingFormProps) {
                   placeholder=""
                   type="text"
                   error={errors.city}
-                  value={user.city}
+                  value={user?.city}
               />
               <SelectField
                   className="w-full"
@@ -129,7 +129,7 @@ function BillingForm({errors}: BillingFormProps) {
                       },
                   ]}
                   error={errors.country}
-                  value={user.country}
+                  value={user?.country}
               />
           </FormWrapper>
 
@@ -152,7 +152,7 @@ function BillingForm({errors}: BillingFormProps) {
                     id="password"
                     placeholder="Enter your password"
                     error={errors.password}
-                    // value={user.password}
+                    // value={user?.password}
                     required
                 />
 

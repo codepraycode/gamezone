@@ -29,7 +29,7 @@ const Shipping = ({errors}: BillingFormProps) => {
                     type="text"
                     error={errors.address}
                     required={required}
-                    // value={user.address}
+                    // value={user?.address}
                 />
 
                 <FormWrapper>
@@ -41,7 +41,7 @@ const Shipping = ({errors}: BillingFormProps) => {
                         type="text"
                         error={errors.city}
                         required={required}
-                        // value={user.city}
+                        // value={user?.city}
                     />
                     <SelectField
                         className="w-full"
@@ -63,7 +63,7 @@ const Shipping = ({errors}: BillingFormProps) => {
                         ]}
                         error={errors.country}
                         required={required}
-                        // value={user.country}
+                        // value={user?.country}
                     />
                 </FormWrapper>
 
@@ -75,7 +75,7 @@ const Shipping = ({errors}: BillingFormProps) => {
                     type="tel"
                     error={errors.contact}
                     required={required}
-                    // value={user.contact}
+                    // value={user?.contact}
                 />
             </div>
         </div>

@@ -41,7 +41,15 @@ export function useCheckout() {
             return;
         }
 
-        toast.loading("Processing...", { ...toastConfig, duration: 0 });
+        if (!user) {
+            toast.error("No User to process, please login", toastConfig);
+
+            // navigate(SHOP, { replace: true });
+            setCheckingOut(false);
+            return;
+        }
+
+        toast.loading("Processing...", { ...toastConfig, duration: 0 });        
 
         createPaymentLink({
             email: user.email,

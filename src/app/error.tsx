@@ -33,7 +33,7 @@ export default function Error500Page({ error, reset }: { error: Error; reset: ()
                                 height={190}
                             /> */}
 
-                            <h1 className="mx-auto mb-8 w-1/2 sm:w-auto text-[#3C50E0]">
+                            <h1 className="mx-auto mb-8 w-1/2 sm:w-auto text-[#3C50E0] text-6xl">
                                 Error 500!
                             </h1>
 

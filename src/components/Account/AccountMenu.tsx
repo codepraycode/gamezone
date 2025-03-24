@@ -208,10 +208,10 @@ export default function AccountMenu() {
                     <div className="max-w-[64px] w-full h-16 rounded-full overflow-hidden">
 
                         {
-                            user.picture ? (
+                            user?.picture ? (
                                 <Image
-                                    src={user.picture}
-                                    alt={user.firstname + " Picture"}
+                                    src={user?.picture}
+                                    alt={user?.firstname + " Picture"}
                                     width={64}
                                     height={64}
                                 />
@@ -224,10 +224,10 @@ export default function AccountMenu() {
 
                     <div>
                         <p className="font-medium text-dark mb-0.5">
-                            {user.firstname}
+                            {user?.firstname}
                         </p>
                         {/* <p className="text-custom-xs">Member Since Sep 2020</p> */}
-                        <p className="text-custom-xs">{user.email}</p>
+                        <p className="text-custom-xs">{user?.email}</p>
                     </div>
                 </div>
 
