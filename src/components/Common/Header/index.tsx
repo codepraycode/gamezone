@@ -5,7 +5,7 @@ import { menuData } from "./menuData";
 import Dropdown from "./Dropdown";
 import { useAppSelector } from "@/redux/store";
 import { useSelector } from "react-redux";
-import { selectTotalPrice } from "@/redux/features/cart-slice";
+import { selectTotalPrice } from "@/redux/commerce/cart-slice";
 import { useCartModalContext } from "@/context/CartSidebarModalContext";
 import Image from "next/image";
 import Logo from "../Logo";

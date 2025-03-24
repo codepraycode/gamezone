@@ -1,5 +1,5 @@
 import { CHECKOUT } from "@/constants";
-import { selectTotalPrice } from "@/redux/features/cart-slice";
+import { selectTotalPrice } from "@/redux/commerce/cart-slice";
 import { useAppSelector } from "@/redux/store";
 import Link from "next/link";
 import React from "react";

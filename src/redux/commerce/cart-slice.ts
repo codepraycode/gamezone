@@ -1,13 +1,9 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { CartItem } from "@/types/cart";
-
-type InitialState = {
-  items: CartItem[];
-};
+import { CartItem, CartState } from "@/types/cart";
 
 
-const initialState: InitialState = {
+const initialState: CartState = {
   items: [],
 };
 

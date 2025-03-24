@@ -9,3 +9,8 @@ export type CartItem = {
     previews: string[];
   };
 };
+
+export type CartState = {
+  items: CartItem[];
+  // totalAmount: number;
+}

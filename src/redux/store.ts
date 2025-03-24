@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import quickViewReducer from "./features/quickView-slice";
-import cartReducer from "./features/cart-slice";
-import wishlistReducer from "./features/wishlist-slice";
-import productDetailsReducer from "./features/product-details";
+import quickViewReducer from "./commerce/quickView-slice";
+import cartReducer from "./commerce/cart-slice";
+import wishlistReducer from "./commerce/wishlist-slice";
+import productDetailsReducer from "./commerce/product-details";
 
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 

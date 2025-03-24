@@ -1,10 +1,10 @@
 
 import { useState } from "react";
 import { useNavigate } from "./useNavigate";
-import toast from "react-hot-toast";
+import toast, { ToastOptions } from "react-hot-toast";
 import { useAccountContext } from "@/context/AccountContext";
 import { validateCreateAccountData, validateLoginData } from "@/utils/validators";
-import { UserAccount, UserAccountForm, ValidationErrors } from "@/types/form";
+import { OrderForm, UserAccount, UserAccountForm, ValidationErrors } from "@/types/form";
 import { isEmpty, wait } from "@/utils/functions";
 
 
@@ -54,9 +54,8 @@ export function useContactForm<T>(intitialData: T = {} as T) {
 }
 
 
-
 export function useAuthForm<T>(intitialData: T= {} as T) {
-    const { updateUser, findUser } = useAccountContext();
+    const { updateUser, findUser, user, } = useAccountContext();
     const [errors, setErrors] = useState<ValidationErrors<T>>({});
     const [loading, setLoading] = useState(false);
 
@@ -65,7 +64,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
     const {navigate} = useNavigate();
 
 
-    function resolveData(e: React.FormEvent): UserAccountForm {
+    function resolveData(e: React.FormEvent, withShipping=false): OrderForm {
         const formData = new FormData(e.currentTarget as HTMLFormElement);
 
         const firstname = formData.get("firstname") as string;
@@ -79,7 +78,8 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
         const password = formData.get("password") as string;
         const rePassword = formData.get("re-type-password") as string;
 
-        return {
+
+        const dt = {
             firstname,
             lastname,
             company,
@@ -89,91 +89,100 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
             contact,
             email,
             password,
-            rePassword
+            rePassword,
+        };
+
+        if (!withShipping) return dt;
+
+
+
+        const shipingcountry = formData.get("shipping:country") as string;
+        const shippingaddress = formData.get("shipping:address") as string;
+        const shippingcity = formData.get("shipping:city") as string;
+        const shippingcontact = formData.get("shipping:contact") as string;
+
+        return {
+            ...dt,
+            shipping: {
+                country: shipingcountry,
+                address: shippingaddress,
+                city: shippingcity,
+                contact: shippingcontact,
+            },
         };
     }
 
-    const handleCreateAccount = async (e: React.FormEvent) => {
-        e.preventDefault();
 
+    async function performUpdateUser(data: UserAccountForm, toastConfig: {loadingMsg: string; successMsg: string; errorMsg:string} & ToastOptions) {
         setLoading(true);
-        const toastID = "authId";
+        if(!isEmpty(errors)) setErrors(()=>({}))
 
-        toast.loading("Creating account", { id: toastID });
+        const { loadingMsg, successMsg, errorMsg, ...config } = toastConfig;
 
-        const data = resolveData(e);
-        
-
-
-        const _errors = validateCreateAccountData(data);
-
-        const {rePassword, ...rest} = data;
-
-        if (!isEmpty(_errors)) {
-            // console.debug(JSON.stringify(_errors));
-            setErrors(()=>_errors as any);
-            toast.error("Could not create an account", { id: toastID });
-            setLoading(false);
-            return;
-        };
-
-        wait(5).then(()=>{
-
-            toast.success("You account has been created!", {
-                id: toastID,
-                duration: 3500,
-            });
-
-            updateUser(rest);
-            setLoading(false);
-
-
-            setTimeout(() => {
-                navigate("/", { toRedirect: true, replace: true });
-            }, 2000);
-        })
-    };
-
-    const updateAccount = async (e: React.FormEvent, simple=true) => {
-        e.preventDefault();
-
-        setLoading(true);
-        const toastID = "authId";
-
-        toast.loading("Creating account", { id: toastID });
-
-        const data = resolveData(e);
+        toast.loading(loadingMsg, {...config, duration:0});
 
         const _errors = validateCreateAccountData(data);
 
         const { rePassword, ...rest } = data;
 
-
         if (!isEmpty(_errors)) {
             // console.debug(JSON.stringify(_errors));
-            setErrors(()=>_errors as any);
-            toast.error("Could not update your account", { id: toastID });
+            setErrors(() => _errors as any);
+            toast.error(errorMsg, config);
             setLoading(false);
             return;
-        };
-
-        wait(5).then(()=>{
-
-            toast.success("You account has been updated!", {
-                id: toastID,
-                duration: 3500,
-            });
-
-            updateUser(rest);
-            setLoading(false);
+        }
 
 
-            if (simple) return;
+        await wait(2);
 
-            setTimeout(() => {
-                navigate("/", { toRedirect: true, replace: true });
-            }, 2000);
-        })
+        toast.success(successMsg, config);
+
+        updateUser(rest);
+        setLoading(false);
+
+        return rest;
+    }
+
+    const handleCreateAccount = async (e: React.FormEvent, simple=true) => {
+        e.preventDefault();
+
+        const data = resolveData(e);
+
+        const rest = await performUpdateUser(data, {
+            errorMsg: "Could not Create account",
+            loadingMsg: "Creating account...",
+            successMsg: "Created account",
+            duration: 4000,
+            id: "authToastId"
+        });
+
+
+        if(simple) return rest;
+
+        setTimeout(() => {
+            navigate("/", { toRedirect: true, replace: true });
+        }, 2000);
+    };
+
+    const updateAccount = async (e: React.FormEvent, simple=true) => {
+        e.preventDefault();
+
+        const data = resolveData(e);
+
+        const rest = await performUpdateUser(data, {
+            errorMsg: "Could not update account",
+            loadingMsg: "Updating account...",
+            successMsg: "Updated account",
+            duration: 4000,
+            id: "authToastId",
+        });
+
+        if (simple) return rest;
+
+        setTimeout(() => {
+            navigate("/", { toRedirect: true, replace: true });
+        }, 2000);
     };
 
     const handleLogin = async (e: React.FormEvent, simple=false) => {
@@ -235,5 +244,8 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
         handleLogin,
         handleCreateAccount,
         updateAccount,
+        resolveData,
+        performUpdateUser,
+        user,
     };
 }

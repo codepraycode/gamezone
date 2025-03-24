@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { FormWrapper } from "../Common/Form/FormUtils";
 import InputField from "../Common/Form/InputField";
-import { useAuthForm } from "@/hooks/useForm";
+// import { useAuthForm } from "@/hooks/useForm";
 import SelectField from "../Common/Form/SelectField";
 import CheckField from "../Common/Form/CheckField";
-import { UserAccount, UserAccountForm, ValidationErrors } from "@/types/form";
+import { BillingFormProps, UserAccountForm, ValidationErrors } from "@/types/form";
 import { useAccountContext } from "@/context/AccountContext";
 
-
-type BillingFormProps = {
-    errors: ValidationErrors<UserAccountForm>;
-    user: UserAccount;
-};
 
 const Billing = (props: BillingFormProps) => {
     return (
@@ -32,9 +27,10 @@ export default Billing;
 
 
 
-function BillingForm({errors, user}:BillingFormProps) {
-  const [checked, setChecked] = useState(false);
-
+function BillingForm({errors}: BillingFormProps) {
+    const [checked, setChecked] = useState(false);
+    
+    const { user } = useAccountContext();
 
   function handleChange() {
       setChecked((p) => !p);
