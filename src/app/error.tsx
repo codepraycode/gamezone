@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowIcon } from "@/components/Common/Icons";
+
+
 export const metadata: Metadata = {
     title: "Serious Error | GameZone",
     description: "W're working on it",
     // other metadata
 };
 
-export default function Error404Page() {
+export default function Error500Page({ error, reset }: { error: Error; reset: () => void }) {
+    useEffect(() => {
+        console.error("Page Error:", error);
+    }, [error]);
+
     return (
         <main>
             {/* <Breadcrumb title={"Error"} pages={["error"]} /> */}
@@ -38,7 +44,7 @@ export default function Error404Page() {
                                 href="/"
                                 className="inline-flex items-center gap-2 font-medium text-white bg-blue py-3 px-6 rounded-md ease-out duration-200 hover:bg-blue-dark"
                             >
-                                <ArrowIcon/>
+                                <ArrowIcon />
                                 Go Home
                             </Link>
                         </div>
