@@ -5,8 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowIcon } from "@/components/Common/Icons";
 export const metadata: Metadata = {
-    title: "Page Not Found | GameZone",
-    description: "This Page you seek is not found!",
+    title: "Serious Error | GameZone",
+    description: "W're working on it",
     // other metadata
 };
 
@@ -19,27 +19,26 @@ export default function Error404Page() {
                     <div className="bg-white rounded-xl shadow-1 px-4 py-10 sm:py-15 lg:py-20 xl:py-25">
                         <div className="text-center">
                             <Image
-                                src="/images/404.svg"
-                                alt="404"
+                                src="/images/500.svg"
+                                alt="500"
                                 className="mx-auto mb-8 w-1/2 sm:w-auto"
                                 width={288}
                                 height={190}
                             />
 
                             <h2 className="font-medium text-dark text-xl sm:text-2xl mb-3">
-                                Sorry, the page can&apos;t be found
+                                Sorry, an error occured
                             </h2>
 
                             <p className="max-w-[410px] w-full mx-auto mb-7.5">
-                                The page you were looking for appears to have
-                                been moved, deleted or does not exist.
+                                We are fixing it...
                             </p>
 
                             <Link
                                 href="/"
                                 className="inline-flex items-center gap-2 font-medium text-white bg-blue py-3 px-6 rounded-md ease-out duration-200 hover:bg-blue-dark"
                             >
-                                <ArrowIcon />
+                                <ArrowIcon/>
                                 Go Home
                             </Link>
                         </div>
@@ -48,4 +47,4 @@ export default function Error404Page() {
             </section>
         </main>
     );
-};
+}
