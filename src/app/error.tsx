@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect } from "react";
 
 import { Metadata } from "next";
@@ -8,7 +9,7 @@ import { ArrowIcon } from "@/components/Common/Icons";
 
 export const metadata: Metadata = {
     title: "Serious Error | GameZone",
-    description: "W're working on it",
+    description: "We're working on it",
     // other metadata
 };
 
