@@ -55,7 +55,12 @@ export function useCheckout() {
                 toast.success("You can proceed to paying...", toastConfig);
 
                 // Redirect to payment page
-                window.location.href = obj.checkout_url;
+                try {
+
+                    window.location.href = obj.checkout_url;
+                } catch(err) {
+                    console.error("Window not accessible!", err);
+                }
             })
             .catch((err) => {
                 console.error("Checkout Error:", err);
