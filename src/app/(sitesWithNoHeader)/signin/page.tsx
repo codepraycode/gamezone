@@ -2,8 +2,6 @@ import React from "react";
 import { Metadata } from "next";
 import Logo from "@/components/Common/Logo";
 import SignInForm from "@/components/Auth/SigninForm";
-import OAuth from "@/components/Auth/OAuth";
-import Link from "next/link";
 
 
 export const metadata: Metadata = {

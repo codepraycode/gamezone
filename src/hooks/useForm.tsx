@@ -149,6 +149,8 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
 
         const data = resolveData(e);
 
+        console.debug(data);
+
         const rest = await performUpdateUser(data, {
             errorMsg: "Could not Create account",
             loadingMsg: "Creating account...",
@@ -162,7 +164,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
 
         setTimeout(() => {
             navigate("/", { toRedirect: true, replace: true });
-        }, 2000);
+        }, 1000);
     };
 
     const updateAccount = async (e: React.FormEvent, simple=true) => {
@@ -186,7 +188,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
     };
 
     const handleLogin = async (e: React.FormEvent, simple=false) => {
-        console.log("Event", e);
+
         e.preventDefault();
     
         setLoading(true);
@@ -231,7 +233,7 @@ export function useAuthForm<T>(intitialData: T= {} as T) {
 
             setTimeout(() => {
                 navigate("/", {toRedirect:true, replace:true});
-            }, 2000);
+            }, 1000);
         }).catch((err)=>{
             toast.error(err.message || "Could not authenticate you", { id: toastID });
         }).finally(()=>setLoading(false));

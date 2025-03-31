@@ -4,8 +4,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { SHOP } from "@/constants";
 export const metadata: Metadata = {
-    title: "Verify Account | GameZone",
-    description: "Quickly verify your account on GameZone",
+    title: "Verify Payment | GameZone",
+    description: "You payment was done, we'll confirm on our end.",
     // other metadata
 };
 

@@ -12,7 +12,7 @@ export default function SignUpForm() {
         useAuthForm<UserAccountForm>();
     const { makeRedirectUrl } = useNavigate();
     return (
-        <form onSubmit={handleCreateAccount}>
+        <form onSubmit={(e)=>handleCreateAccount(e, false)}>
             <FormWrapper>
                 <InputField
                     className="w-full"
@@ -34,6 +34,30 @@ export default function SignUpForm() {
                     required
                 />
             </FormWrapper>
+
+            {/* <FormWrapper> */}
+            <InputField
+                // className="w-full"
+                label="Phone Number"
+                name="contact"
+                placeholder=""
+                type="tel"
+                required
+                error={errors.contact}
+                // value={user?.contact}
+            />
+
+            <InputField
+                // className="m"
+                label="Email"
+                name="email"
+                placeholder=""
+                type="email"
+                required
+                error={errors.email}
+                // value={user?.email}
+            />
+            {/* </FormWrapper> */}
 
             <FormWrapper>
                 <InputField
