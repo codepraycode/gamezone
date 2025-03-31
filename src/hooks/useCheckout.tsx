@@ -54,6 +54,7 @@ export function useCheckout() {
         createPaymentLink({
             email: user.email,
             amount: total,
+            redirect: window.location.origin + "/verify",
             name:
                 [user.firstname, user.lastname].filter(Boolean).join(" ") ||
                 "Guest User",

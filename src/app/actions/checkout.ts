@@ -8,17 +8,18 @@ type PaymentLinkData = {
     amount: number,
     currency?: "NGN" | "USD",
     name: string;
+    redirect?:string;
 }
 
 export async function createPaymentLink(data: PaymentLinkData) {
-    const { amount, name: customer_name, currency="USD", ...rest} = data;
+    const { amount, name: customer_name, currency="USD", redirect, ...rest} = data;
     try {
         const body = {
             amount: amount * 100, // Amount in Kobo (50000 Kobo = 500 NGN)
             currency,
             customer_name,
             initiate_type: "inline",
-            callback_url: "http://localhost:3000/verify", // Fix this
+            callback_url: redirect || "http://localhost:3000/verify", // Fix this
             ...rest,
         };
 
